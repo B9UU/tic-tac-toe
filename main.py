@@ -21,19 +21,26 @@ def gameboard():
 {data.get(7)} | {data.get(8)} | {data.get(9)}'''
     print(layer)
 def check_the_game():
+    global gameon
     for i in range(1,10):
+        dd = 0
         if data[i] == '':
+            dd += 1
+            continue
+        if dd != 9:
             return True
+        else:
+            return False
             
 def something(number,player):
     nn = True
     while nn:
         if data[number] !='':
             print('youre pick all ready in the table')
-            number = int(input('Pick a number from 1-9 for youre next mouve'))
+            number = int(input('Pick a number from 1-9 for youre next mouve: '))
         elif type(number) is not int:
             print('Not a number')
-            number = int(input('Pick a number from 1-9 for youre next mouve'))
+            number = int(input('Pick a number from 1-9 for youre next mouve: '))
         else:    
             data[number] = player
             whowins(data,player)
@@ -42,7 +49,7 @@ def something(number,player):
 
 def whowins(da, play):
     global gameon
-    if not check_the_game:
+    if check_the_game() is False:
         print('ta3adol azbi')
         gameboard()
         gameon = False
@@ -70,17 +77,25 @@ def whowins(da, play):
         print(f'{play} Wins')
         gameboard()
         gameon = False
+    elif da[1] == play and da[5] == play and da[9] == play:
+        print(f'{play} Wins')
+        gameboard()
+        gameon = False
+    elif da[3] == play and da[5] == play and da[7] == play:
+        print(f'{play} Wins')
+        gameboard()
+        gameon = False
 
 gameon = True
 while gameon:
     
     gameboard()
-    o_player = message = int(input('O player Pick a number from 1-9 for youre next mouve'))
+    o_player = message = int(input('O player Pick a number from 1-9 for youre next mouve: '))
     
     dd= something(o_player,'O')
-
-    gameboard()
-    x_player = message = int(input('X player Pick a number from 1-9 for youre next mouve'))
-    dd= something(x_player,'X')
+    if gameon:
+        gameboard()
+        x_player = message = int(input('X player Pick a number from 1-9 for youre next mouve: '))
+        dd= something(x_player,'X')
     
 
